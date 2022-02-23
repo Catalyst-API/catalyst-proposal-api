@@ -17,24 +17,24 @@ services:
             - PGADMIN_DEFAULT_PASSWORD=alj2340aaALJAF2341408AUUZLJK
         ports:
             - "8888:80"
-    redis:
+    redis-service:
         image: redis:7.0-rc-alpine
         command: [ sh, -c, "rm -f /data/dump.rdb && redis-server --save ''" ]
     db-service:
         image: postgres:14.2-alpine3.15
-        container_name: db
+        container_name: catalyst_db
         environment:
             - POSTGRES_LOGGING=true
-            - POSTGRES_DB=lidoweb
+            - POSTGRES_DB=catalyst
             - POSTGRES_PASSWORD=ASLJ023470AlserLFH
-            - POSTGRES_USER=lido
+            - POSTGRES_USER=catalyst
             - POSTGRES_POSTGRES_PASSWORD=alj2340aaALJAF2341408AUUZLJK
         ports:
             - "5436:5432"
         restart: on-failure
         volumes:
             - type: volume
-              source: web_db
+              source: catalyst_db
               target: /var/lib/postgresql/data
               volume:
                   nocopy: true
@@ -42,14 +42,14 @@ services:
             driver: "json-file"
             options:
                 max-size: "200k"
-    api-service:
+    catalyst-api-fpm-service:
         image: registry.raddcreative.io/lidonation/lidonation/www.lidonation.com
         container_name: api
         restart: unless-stopped
         depends_on:
-            - search
-            - db
-            - redis
+            - search-service
+            - db-service
+            - redis-service
         env_file:
             - ./src/app.env
         environment:
@@ -58,24 +58,24 @@ services:
             PHP_OPCACHE_ENABLE: 0
             PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
             CONTAINER_ROLE: "app"
-            DB_CONNECTION: db
+            DB_CONNECTION: pgsql
             FPM_SERVICE: '127.0.0.1'
             MEILISEARCH_KEY: v8hlDV0yMAHHlIurYupj
             MEILISEARCH_HOST: "search-service:7700"
             POSTGRESQL_DB_HOST: "db-service"
+            POSTGRESQL_WEB_DB_HOST: "db-service"
             POSTGRESQL_DB: catalyst
             POSTGRESQL_USER: catalyst
             POSTGRESQL_PASSWORD: ASLJ023470AlserLFH
             MEDIA_DISK: public
             TELESCOPE_USE_DARK_THEME: "true"
         build:
-            context: ./
+            context: src
             args: {}
         ports:
             - "8080:8080"
         volumes:
-            - ./src/www.lidonation.com/var/www:/var/www
-            - ./data/www/data:/data
-            - ./build/web/etc/nginx/resolver_dev.conf:/etc/nginx/resolver.conf
+            - ./src:/var/www
+            - ./build/web/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
 volumes:
-    web_db:
+    catalyst_db:

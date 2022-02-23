@@ -1,0 +1,43 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import "base";
+
+hr {
+    @apply my-5 border-b border-gray-100;
+}
+
+p:not(:first-of-type) {
+    @apply mt-4;
+}
+
+h1, h2, h3 {
+    @apply pb-1 font-bold;
+}
+
+h1 {
+    @apply text-3xl;
+}
+
+h2 {
+    @apply text-2xl;
+}
+
+h4 {
+    @apply text-xl;
+}
+
+.container {
+    @apply px-5 mx-auto max-w-screen-2xl 2xl:px-10 2xl:max-w-screen-2xl;
+}
+
+.card {
+    @apply rounded-md;
+    > * {
+        box-shadow: 8px 8px 0px 0px #222326;
+        border: #222326 1px solid;
+        border-radius: 5px;
+    }
+    //background-image: url('/img/greg-rakozy-unsplash.jpeg');
+}
