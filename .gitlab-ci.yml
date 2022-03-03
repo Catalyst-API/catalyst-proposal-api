@@ -316,13 +316,13 @@ redis-prod:
   <<: *deploy_redis
   stage: production
   environment:
-    name: mainnet
+    name: production
 
 postgres-prod:
   <<: *deploy_postgres
   stage: production
   environment:
-    name: mainnet
+    name: production
 
 production:
   <<: *deploy_template
