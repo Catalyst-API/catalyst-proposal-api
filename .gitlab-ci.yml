@@ -315,25 +315,19 @@ web:
 redis-prod:
   <<: *deploy_redis
   stage: production
-  needs:
-    - redis-test
   environment:
     name: mainnet
 
-postgres-web-prod:
+postgres-prod:
   <<: *deploy_postgres
   stage: production
-  needs:
-    - postgres-web-test
   environment:
     name: mainnet
 
-mainnet:
+production:
   <<: *deploy_template
   stage: production
   retry: 1
-  needs:
-    - testnet
   script:
     - *setup
     - deploy_services
