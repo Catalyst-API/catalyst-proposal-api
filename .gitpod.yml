@@ -18,8 +18,8 @@ tasks:
   - name: install deps
     init: |
       mysql -u root -e "create database php" && git config --global http.sslverify false
-      yarn --cwd ./src/www.lidonation.com/var/www/ install
-      composer install -o --ignore-platform-reqs -d ./src/www.lidonation.com/var/www/
+      yarn --cwd ./src/ install
+      composer install -o --ignore-platform-reqs -d ./src/
       mkdir -p ./data/dbsync/datas
       mkdir -p ./data/dbsync/tmp
       mkdir -p ./data/postgres/cdbsync/data
@@ -27,7 +27,7 @@ tasks:
       mkdir -p ./data/relay/data/ipc
       mkdir -p ./data/www/data
       mkdir -p ./data/www/db/data
-      cp ./src/www.lidonation.com/var/www/.env.example ./src/www.lidonation.com/var/www/.env
+      cp ./src/.env.example ./src/.env
       echo -n cdbsync > src/pool/config/db-sync/secrets/postgres_db
       echo -n postgres > src/pool/config/db-sync/secrets/postgres_user
       echo -n v8hlDV0yMAHHlIurYupj > src/pool/config/db-sync/secrets/postgres_password

@@ -43,7 +43,7 @@ services:
             options:
                 max-size: "200k"
     catalyst-api-fpm-service:
-        image: registry.raddcreative.io/lidonation/lidonation/www.lidonation.com
+        image: registry.raddcreative.io/lidonation/lidonation/api.projectcatalyst.org
         container_name: api
         restart: unless-stopped
         depends_on:
@@ -63,7 +63,7 @@ services:
             MEILISEARCH_KEY: v8hlDV0yMAHHlIurYupj
             MEILISEARCH_HOST: "search-service:7700"
             POSTGRESQL_DB_HOST: "db-service"
-            POSTGRESQL_WEB_DB_HOST: "db-service"
+            POSTGRESQL_DB_HOST: "db-service"
             POSTGRESQL_DB: catalyst
             POSTGRESQL_USER: catalyst
             POSTGRESQL_PASSWORD: ASLJ023470AlserLFH

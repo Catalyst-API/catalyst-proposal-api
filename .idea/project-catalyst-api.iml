@@ -131,6 +131,12 @@
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/jaybizzle/crawler-detect" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/laravel/horizon" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/thecodingmachine/safe" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/mll-lab/laravel-graphql-playground" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/laragraph/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/haydenpierce/class-finder" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/webonyx/graphql-php" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/nuwave/lighthouse" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
