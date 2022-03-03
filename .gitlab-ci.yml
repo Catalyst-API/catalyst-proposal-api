@@ -309,6 +309,7 @@ web:
 #  rules:
 #    - when: on_success
 
+
 ########## Deploy to prod env Jobs #########
 ############################################
 redis-prod:
@@ -340,7 +341,7 @@ mainnet:
   environment:
     name: mainnet
   rules:
-    - if: '$CI_COMMIT_BRANCH == "mainnet" && (
+    - if: '$CI_COMMIT_BRANCH == "master" && (
               ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")
               )'
       when: manual
