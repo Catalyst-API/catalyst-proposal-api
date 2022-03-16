@@ -263,18 +263,11 @@ build_api:
     - *auto_devops_custom
     - setup_docker
     - |
-      if [[  $CI_COMMIT_BRANCH != 'mainnet' ]]; then
-        cat ./src/pool/config/metadata.tmpl.json |
-        sed 's/\$POOL_HOMEPAGE'/$(echo $AUTO_DEVOPS_WEB_HOST | sed 's_/_\\/_g')/g |
-        cat > ./src/public/metadata.json
-      fi
-      echo 'metadata.json generated'
-      cat ./src/public/metadata.json
-
-      echo 'generate nginx/fpm resolver for $KUBE_NAMESPACE'
-      echo "resolver kube-dns.kube-system.svc.cluster.local valid=10s ipv6=off;"  > ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
-      echo "set $backendfpm lidolovelace-web-fpm-service.${KUBE_NAMESPACE}.svc.cluster.local:9000;" >> ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
-      echo "fastcgi_pass $backendfpm;" >> ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
+      echo "CI_COMMIT_TAG: $CI_COMMIT_TAG"
+      # echo 'generate nginx/fpm resolver for $KUBE_NAMESPACE'
+      # echo "resolver kube-dns.kube-system.svc.cluster.local valid=10s ipv6=off;"  > ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
+      # echo "set $backendfpm lidolovelace-web-fpm-service.${KUBE_NAMESPACE}.svc.cluster.local:9000;" >> ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
+      # echo "fastcgi_pass $backendfpm;" >> ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
 
       docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
       echo "Building web Dockerfile..."
