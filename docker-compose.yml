@@ -4,6 +4,8 @@ services:
     search-service:
         container_name: search
         image: getmeili/meilisearch:v0.23.1
+        networks:
+            - catalyst-network
         ports:
             - "7700:7700"
         environment:
@@ -12,6 +14,8 @@ services:
     pgAdmin:
         image: dpage/pgadmin4
         container_name: pgadmin
+        networks:
+            - catalyst-network
         environment:
             - PGADMIN_DEFAULT_EMAIL=hello@lidonation.com
             - PGADMIN_DEFAULT_PASSWORD=alj2340aaALJAF2341408AUUZLJK
@@ -20,6 +24,8 @@ services:
     redis-service:
         image: redis:7.0-rc-alpine
         command: [ sh, -c, "rm -f /data/dump.rdb && redis-server --save ''" ]
+        networks:
+            - catalyst-network
     db-service:
         image: postgres:14.2-alpine3.15
         container_name: catalyst_db
@@ -32,6 +38,8 @@ services:
         ports:
             - "5436:5432"
         restart: on-failure
+        networks:
+            - catalyst-network
         volumes:
             - type: volume
               source: catalyst_db
@@ -46,6 +54,10 @@ services:
         image: registry.raddcreative.io/lidonation/lidonation/api.projectcatalyst.org
         container_name: api
         restart: unless-stopped
+        tty: true
+        working_dir: /var/www
+        networks:
+            - catalyst-network
         depends_on:
             - search-service
             - db-service
@@ -63,19 +75,36 @@ services:
             MEILISEARCH_KEY: v8hlDV0yMAHHlIurYupj
             MEILISEARCH_HOST: "search-service:7700"
             POSTGRESQL_DB_HOST: "db-service"
-            POSTGRESQL_DB_HOST: "db-service"
             POSTGRESQL_DB: catalyst
             POSTGRESQL_USER: catalyst
             POSTGRESQL_PASSWORD: ASLJ023470AlserLFH
             MEDIA_DISK: public
             TELESCOPE_USE_DARK_THEME: "true"
         build:
-            context: src
-            args: {}
-        ports:
-            - "8080:8080"
+            dockerfile: Dockerfile
+            context: ./
+            args:
+                WWWUSER: ${WWWUSER:-$UID}
+        expose:
+            -   9000
         volumes:
             - ./src:/var/www
             - ./build/web/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+    nginx:
+        image: nginx:alpine
+        container_name: nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8080:80"
+        volumes:
+            - ./src:/var/www
+            - ./build/rootfs/etc/nginx/conf.d:/etc/nginx/conf.d/
+        networks:
+            - catalyst-network
 volumes:
     catalyst_db:
+
+networks:
+    catalyst-network:
+        driver: bridge
