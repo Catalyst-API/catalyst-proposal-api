@@ -274,19 +274,18 @@ build_api:
 
 ############ Test Jobs ###########
 ##################################
-
-#test_phpunit:
-#  stage: test
-#  image: registry.raddcreative.io/lidonation/lidonation/api.projectcatalyst.org:latest
-#  retry: 1
-#  script:
-#    - |
-#      cd ./src
-#      cp .env.example .env
-#      php artisan key:generate
-#      php artisan test
-#  rules:
-#    - when: on_success
+test_phpunit:
+  stage: test
+  image: registry.raddcreative.io/lidonation/lidonation/api.projectcatalyst.org:latest
+  retry: 1
+  script:
+    - |
+      cd ./src
+      cp .env.example .env
+      php artisan key:generate
+      php artisan test
+  rules:
+    - when: on_success
 
 
 ########## Deploy to prod env Jobs #########
