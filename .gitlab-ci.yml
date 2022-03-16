@@ -249,7 +249,7 @@ build_api:
       optional: true
   script:
     - *auto_devops_custom
-    - auto_devops_custom
+    - install_dependencies
     - setup_docker
     - |
       set -xe
@@ -271,7 +271,7 @@ build_api:
       docker push "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest"
       echo ""
   rules:
-    - if: '$CI_COMMIT_TAG != "" &&
+    - if: '($CI_COMMIT_TAG != "") &&
               ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
 
 ############ Test Jobs ###########
