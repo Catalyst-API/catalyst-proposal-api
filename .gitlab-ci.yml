@@ -164,7 +164,7 @@ workflow:
 .deploy_template: &deploy_template
   image: alpine:latest
   retry: 0
-  cache: { }
+  cache: {}
 
 .deploy_postgres: &deploy_postgres
   <<: *deploy_template
@@ -201,8 +201,8 @@ yarn:
       - ./src/public
     expire_in: 6 days
   rules:
-    - if: '$CI_COMMIT_BRANCH == "testnet" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
-    - if: '$CI_COMMIT_BRANCH == "mainnet" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
+    - if: '$CI_COMMIT_BRANCH == "develop" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
+    - if: '$CI_COMMIT_BRANCH == "master" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
 
 composer:
   stage: build_app
@@ -219,14 +219,14 @@ composer:
       - ./src/vendor
     expire_in: 6 days
   rules:
-    - if: '$CI_COMMIT_BRANCH == "testnet" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
-    - if: '$CI_COMMIT_BRANCH == "mainnet" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
+    - if: '$CI_COMMIT_BRANCH == "develop" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
+    - if: '$CI_COMMIT_BRANCH == "master" && ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
 
 web_base:
   stage: build_app
   image: docker:20.10.8-git
   retry: 1
-  cache: { }
+  cache: {}
   script:
     - *auto_devops_custom
     - setup_docker
@@ -253,7 +253,7 @@ web:
   stage: build_image
   image: docker:20.10.8-git
   retry: 1
-  cache: { }
+  cache: {}
   needs:
     - yarn
     - composer
@@ -288,9 +288,9 @@ web:
       docker push "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest"
       echo ""
   rules:
-    - if: '$CI_COMMIT_BRANCH == "mainnet" &&
+    - if: '$CI_COMMIT_BRANCH == "master" &&
               ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
-    - if: '$CI_COMMIT_BRANCH == "testnet" &&
+    - if: '$CI_COMMIT_BRANCH == "develop" &&
               ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")'
 
 ############ Test Jobs ###########
