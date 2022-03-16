@@ -332,7 +332,7 @@ production:
     - deploy_services
     - persist_environment_url
   environment:
-    name: mainnet
+    name: production
   rules:
     - if: '$CI_COMMIT_BRANCH == "master" && (
               ($DEPLOY_WEBSITE == "True" || $DEPLOY_WEBSITE == "true")
