@@ -3,8 +3,8 @@ include:
 
 # ---------------------------------------------------------------------------
 .auto_devops_custom: &auto_devops_custom |
-  # Auto DevOps variables and functions
-  [[ "$TRACE" ]] && set -xev
+  set -xe
+  # Auto DevOps variables and functions  
   # extract app version
   # export APP_VERSION=$(awk '/version/{gsub(/("|",)/,"",$2);print $2};' package.json)
   export APP_VERSION=$CI_COMMIT_TAG
@@ -252,7 +252,7 @@ build_api:
     - auto_devops_custom
     - setup_docker
     - |
-      [[ "$TRACE" ]] && set -xev
+      set -xe
       echo "CI_COMMIT_TAG: $CI_COMMIT_TAG"
       # echo 'generate nginx/fpm resolver for $KUBE_NAMESPACE'
       # echo "resolver kube-dns.kube-system.svc.cluster.local valid=10s ipv6=off;"  > ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
