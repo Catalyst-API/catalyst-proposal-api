@@ -249,6 +249,7 @@ build_api:
       optional: true
   script:
     - *auto_devops_custom
+    - auto_devops_custom
     - setup_docker
     - |
       [[ "$TRACE" ]] && set -xev
