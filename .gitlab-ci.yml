@@ -194,9 +194,9 @@ yarn:
 
 composer:
   stage: build_app
-  image: composer:2.1.9
+  image: composer:2.2.9
   retry: 1
-  cache: { }
+  cache: {}
   variables:
     GIT_SUBMODULE_STRATEGY: normal
   script:
@@ -231,7 +231,6 @@ web_base:
       echo "Pushing web to GitLab Container Registry..."
       docker push "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org.base:${WEB_BASE_IMAGE_VER}"
       docker push "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org.base:latest"
-      echo ""
   rules:
     - if: '$WEB_BASE_IMAGE_VER'
 
