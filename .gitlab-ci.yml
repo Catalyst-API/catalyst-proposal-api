@@ -249,7 +249,7 @@ web_base:
 
 ########## Docker jobs #########
 ###################################
-web:
+build_api:
   stage: build_image
   image: docker:20.10.8-git
   retry: 1
