@@ -81,25 +81,14 @@ include:
       --timeout 600s \
       -f ./chart/values.yaml \
       --set application.track="$track" \
-      --set GOOGLE_CLOUD_KEY_FILE="$GOOGLE_CLOUD_KEY_FILE" \
       --set certmanager.server="$cert_server" \
-      --set services.web.certificate.host="$AUTO_DEVOPS_WEB_HOST" \
-      --set services.web.ingress.host="$AUTO_DEVOPS_WEB_HOST" \
-      --set services.web.ingress.hosts[0]="$AUTO_DEVOPS_WEB_DOMAIN" \
-      --set services.web.ingress.tls[0].secretName="lidonation-com-tls" \
-      --set services.web.ingress.tls[0].hosts[0]="$AUTO_DEVOPS_WEB_DOMAIN" \
+      --set services.web.certificate.host="$AUTO_DEVOPS_WEB_HOST" \      
       --set services.web.replicaCount="$replicas" \
       --set services.web.service.url="$AUTO_DEVOPS_WEB_HOST" \
       --set services.web.secret.app_key="$APP_KEY" \
       --set services.web.config.APP_URL="$AUTO_DEVOPS_WEB_HOST" \
       --set services.web.config.CLOUDFLARE_TOKEN="$CLOUDFLARE_TOKEN" \
-      --set services.web.config.COIN_MARKET_CAP_API_KEY="$COIN_MARKET_CAP_API_KEY" \
-      --set services.web.config.FACEBOOK_APP_ID="$FACEBOOK_APP_ID" \
-      --set services.web.config.GOOGLE_CLOUD_STORAGE_BUCKET="$GOOGLE_CLOUD_STORAGE_BUCKET" \
-      --set services.web.config.KUBERNETES_NAMESPACE="$KUBE_NAMESPACE" \
-      --set services.web.config.MAILGUN_SECRET="$MAILGUN_SECRET" \
-      --set services.web.config.MAIL_MAILER="$MAIL_MAILER" \
-      --set services.web.config.MEDIA_DISK="$MEDIA_DISK" \
+      --set services.web.config.KUBERNETES_NAMESPACE="$KUBE_NAMESPACE" \      
       --set services.web.config.POSTGRESQL_USER="$POSTGRESQL_USER" \
       --set services.web.config.POSTGRESQL_DB_SYNC_USER="$POSTGRESQL_DB_SYNC_USER" \
       --set services.web.secret.RECAPTCHA_V3_SECRET_KEY="$RECAPTCHA_V3_SECRET_KEY" \
@@ -116,7 +105,6 @@ include:
       --set services.web_db.secret.POSTGRESQL_PASSWORD="$POSTGRESQL_PASSWORD" \
       --set services.web_db.secret.POSTGRESQL_POSTGRES_PASSWORD="$POSTGRESQL_POSTGRES_PASSWORD" \
       --set services.redis.secret.REDIS_PASSWORD="$REDIS_PASSWORD" \
-      --set services.elasticsearch.realm.passwordSha256="$(printf ${ES_ADMIN_PASSWORD} | base64 -d)" \
       --set image.tag="$CI_APPLICATION_TAG" \
       --set image.pullSecret="$secret_name" \
       --set namespace=${KUBE_NAMESPACE} \
@@ -263,6 +251,7 @@ build_api:
     - *auto_devops_custom
     - setup_docker
     - |
+      [[ "$TRACE" ]] && set -xev
       echo "CI_COMMIT_TAG: $CI_COMMIT_TAG"
       # echo 'generate nginx/fpm resolver for $KUBE_NAMESPACE'
       # echo "resolver kube-dns.kube-system.svc.cluster.local valid=10s ipv6=off;"  > ./src/api.projectcatalyst.org/etc/nginx/resolver.conf
