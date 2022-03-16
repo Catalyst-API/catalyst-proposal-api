@@ -72,7 +72,6 @@ include:
 
   function deploy_web_services() {
     DEPLOYMENT_NAME="$AUTO_DEVOPS_APP_PREFIX-web.$CI_ENVIRONMENT_SLUG"
-    cat $GOOGLE_CLOUD_KEY_FILE > ./chart/lidonation.com/service-account.json
 
     helm upgrade "$DEPLOYMENT_NAME" ./chart/lidonation.com \
       --wait \
