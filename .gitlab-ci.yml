@@ -87,9 +87,6 @@ include:
       --set services.web.config.CLOUDFLARE_TOKEN="$CLOUDFLARE_TOKEN" \
       --set services.web.config.KUBERNETES_NAMESPACE="$KUBE_NAMESPACE" \      
       --set services.web.config.POSTGRESQL_USER="$POSTGRESQL_USER" \
-      --set services.web.config.POSTGRESQL_DB_SYNC_USER="$POSTGRESQL_DB_SYNC_USER" \
-      --set services.web.secret.RECAPTCHA_V3_SECRET_KEY="$RECAPTCHA_V3_SECRET_KEY" \
-      --set services.web.secret.RECAPTCHA_V3_SITE_KEY="$RECAPTCHA_V3_SITE_KEY" \
       --set services.web.secret.MAIL_USERNAME="$MAILTRAP_USERNAME" \
       --set services.web.secret.MAIL_PASSWORD="$MAILTRAP_PASSWORD" \
       --set services.web.secret.DEEPL_AUTH_KEY="$DEEPL_AUTH_KEY" \
@@ -115,7 +112,7 @@ cache:
     - ./src/node_modules
 
 variables:
-  HELM_VERSION: 3.8.0
+  HELM_VERSION: 3.8.1
   DEPLOY_INFRA:
     value: 'False'
     description: 'Install infrastructure services (redis, postgres)'
