@@ -112,9 +112,6 @@ include:
       --version="$APP_VERSION"
   }
 
-  deploy_web_services
-
-
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
@@ -248,7 +245,6 @@ build_api:
       optional: true
   script:
     - *auto_devops_custom
-    - install_dependencies
     - setup_docker
     - |
       set -xe
