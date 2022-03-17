@@ -3,3 +3,4 @@ node_modules
 docker_volumes
 .DS_Store
 data
+chart

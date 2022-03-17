@@ -253,7 +253,7 @@ build_api:
       docker build  \
         --cache-from "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest" \
         -f ./src/api.projectcatalyst.org/Dockerfile -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:$CI_APPLICATION_TAG" \
-        -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest" ./src/api.projectcatalyst.org/.
+        -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest" .
 
       echo "Pushing web to GitLab Container Registry..."
       docker push "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:$CI_APPLICATION_TAG"
