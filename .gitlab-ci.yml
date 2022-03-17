@@ -214,10 +214,10 @@ web_base:
       echo "Building web BASE Dockerfile..."
       docker build  \
         --cache-from "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org.base:latest" \
-        -f ./src/api.projectcatalyst.org/Dockerfile.base \
+        -f Dockerfile.base \
         -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org.base:${WEB_BASE_IMAGE_VER}" \
         -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org.base:latest" \
-        ./src/api.projectcatalyst.org/.
+        .
 
       echo "Pushing web to GitLab Container Registry..."
       docker push "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org.base:${WEB_BASE_IMAGE_VER}"
@@ -252,7 +252,7 @@ build_api:
       echo "Building web Dockerfile..."
       docker build  \
         --cache-from "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest" \
-        -f ./src/api.projectcatalyst.org/Dockerfile -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:$CI_APPLICATION_TAG" \
+        -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:$CI_APPLICATION_TAG" \
         -t "$CI_APPLICATION_REPOSITORY/api.projectcatalyst.org:latest" .
 
       echo "Pushing web to GitLab Container Registry..."
