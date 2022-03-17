@@ -8,7 +8,7 @@ include:
   # extract app version
   # export APP_VERSION=$(awk '/version/{gsub(/("|",)/,"",$2);print $2};' package.json)
   export APP_VERSION=$CI_COMMIT_TAG
-  export APP_VERSION_AND_BUILD="${APP_VERSION}-${CI_PIPELINE_ID}"
+  export APP_VERSION_AND_BUILD="v${APP_VERSION}-${CI_PIPELINE_ID}"
 
   export CI_APPLICATION_REPOSITORY=$CI_REGISTRY_IMAGE
   export CI_APPLICATION_TAG=$APP_VERSION_AND_BUILD
@@ -46,10 +46,7 @@ include:
         --set extraEnv[1].value="$POSTGRESQL_USER" \
         --set extraEnv[2].value="$POSTGRESQL_PASSWORD" \
         --set extraEnv[3].value="$POSTGRESQL_POSTGRES_PASSWORD" \
-        --set persistence.existingClaim="$KUBE_NAMESPACE-postgres-web-pvc" \
-        --set persistence.subPath="lido/$CARDANO_NETWORK/postgres/web" \
-        --set persistence.selector.matchLabels.name="lidolovelace-postgres-web-pv" \
-        lidolovelace-web-db \
+        catalyst-db \
         bitnami/postgresql
   }
 
