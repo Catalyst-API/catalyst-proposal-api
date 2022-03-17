@@ -269,6 +269,8 @@ test_phpunit:
   image: registry.raddcreative.io/lidonation/api.projectcatalyst.org:latest
   retry: 1
   script:
+    - *auto_devops_custom
+    - setup_docker
     - |
       cd ./src
       cp .env.example .env
