@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a977d8597acd5d09c52f62a55c9bfc0",
+    "content-hash": "df0b0b9e524006e564b4831767e9c49b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3127,16 +3127,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.40.1",
+            "version": "v5.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "5415c8884d1cc84d04e006322cf41e9ef93d8c6f"
+                "reference": "fe3284388a8f3a210063f41cb5483388ab27483d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/5415c8884d1cc84d04e006322cf41e9ef93d8c6f",
-                "reference": "5415c8884d1cc84d04e006322cf41e9ef93d8c6f",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/fe3284388a8f3a210063f41cb5483388ab27483d",
+                "reference": "fe3284388a8f3a210063f41cb5483388ab27483d",
                 "shasum": ""
             },
             "require": {
@@ -3253,7 +3253,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-22T09:50:14+00:00"
+            "time": "2022-03-18T12:52:39+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

@@ -22,3 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/proposals', function (Request $request) {
     return [];
 });
+
+Route::prefix('v1')->group(function () {
+    Route::get('/proposals', function () {
+        return [];
+    });
+});
+
