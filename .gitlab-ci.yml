@@ -299,6 +299,7 @@ production:
   stage: production
   retry: 1
   script:
+    - *auto_devops_custom
     - *setup
     - deploy_services
     - persist_environment_url
