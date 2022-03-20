@@ -266,7 +266,7 @@ build_api:
 ##################################
 test_phpunit:
   stage: test
-  image: registry.raddcreative.io/lidonation/api.projectcatalyst.org:latest
+  image: registry.raddcreative.io/lidonation/catalyst-proposal-api/api.projectcatalyst.org:latest
   retry: 1
   script:
     - *auto_devops_custom
