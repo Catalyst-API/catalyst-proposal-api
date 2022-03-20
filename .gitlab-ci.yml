@@ -71,7 +71,7 @@ include:
   function deploy_api_services() {
     DEPLOYMENT_NAME="$AUTO_DEVOPS_APP_PREFIX-web.$CI_ENVIRONMENT_SLUG"
 
-    helm upgrade "$DEPLOYMENT_NAME" ./chart/lidonation.com \
+    helm upgrade "$DEPLOYMENT_NAME" ./chart \
       --wait \
       --install \
       --atomic \
