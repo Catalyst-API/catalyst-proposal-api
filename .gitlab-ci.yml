@@ -273,7 +273,7 @@ test_phpunit:
     - setup_docker
     - |
       cd ./src
-      cp .env.example .env
+      cp .env.test .env
       php artisan key:generate
       php artisan test
   rules:
