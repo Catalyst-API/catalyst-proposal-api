@@ -68,7 +68,7 @@ include:
         bitnami/redis
   }
 
-  function deploy_web_services() {
+  function deploy_api_services() {
     DEPLOYMENT_NAME="$AUTO_DEVOPS_APP_PREFIX-web.$CI_ENVIRONMENT_SLUG"
 
     helm upgrade "$DEPLOYMENT_NAME" ./chart/lidonation.com \
@@ -301,7 +301,7 @@ production:
   script:
     - *auto_devops_custom
     - *setup
-    - deploy_services
+    - deploy_api_services
     - persist_environment_url
   environment:
     name: production
