@@ -97,13 +97,9 @@ spec:
           - name: gcloud-service-account
             mountPath: /tmp/gcloud
             readOnly: false
-          - name: "{{ $.Chart.Name }}-storage-web-volume"
+          - name: "{{ $.Chart.Name }}-storage-api-volume"
             mountPath: {{ .Values.services.api.persistence.mountPath }}
-            subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/web/storage"
-            readOnly: false
-          - name: "{{ $.Chart.Name }}-storage-web-volume"
-            mountPath: /data
-            subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/web/data"
+            subPath: "catalyst/api/storage"
             readOnly: false
         livenessProbe:
           exec:
@@ -122,9 +118,9 @@ spec:
           successThreshold: 1
           failureThreshold: 5
       volumes:
-        - name: "{{ $.Chart.Name }}-storage-web-volume"
+        - name: "{{ $.Chart.Name }}-storage-api-volume"
           persistentVolumeClaim:
-            claimName: "{{ .Values.namespace }}-storage-web-pvc"
+            claimName: "{{ .Values.namespace }}-storage-api-pvc"
       tolerations:
         - key: "tier"
           operator: "Equal"
