@@ -11,9 +11,5 @@ spec:
       name: fpm
       targetPort: fpm
       protocol: TCP
-    - port: 8080
-      name: http
-      protocol: TCP
-      targetPort: http
   selector:
     service: "{{ $.Chart.Name }}-api"

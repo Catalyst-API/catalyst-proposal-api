@@ -25,15 +25,15 @@ services:
       enabled: true
       size: 8Gi
     secret:
-      POSTGRESQL_DB: lidoweb
-      POSTGRESQL_USERNAME: lnation
+      POSTGRESQL_DB: catalyst
+      POSTGRESQL_USERNAME: catalyst
       POSTGRESQL_PASSWORD:
       POSTGRESQL_POSTGRES_PASSWORD:
   queue:
     replicaCount: 2
   api:
     image:
-      repository: registry.raddcreative.io/lidonation/lidonation/www.lidonation.com
+      repository: registry.raddcreative.io/lidonation/catalyst-proposal-api/api.projectcatalyst.org
     ingress:
       controller:
         headers:
@@ -46,24 +46,22 @@ services:
         cert-manager.io/cluster-issuer: letsencrypt-prod-issuer
       }
       hosts:
-        - www.lidonation.com
+        - api.projectcatalyst.org
       tls:
-        - secretName: lidonation-com-tls
+        - secretName: api-projectcatalyst-tls
           hosts:
-            - www.lidonation.com
-            - lidonation.com
+            - api.projectcatalyst.org
     replicaCount: 2
     config: {
-      APP_NAME: 'Lido Nation',
+      APP_NAME: 'Catalyst Proposal API',
       APP_ENV: production,
       APP_DEBUG: "false",
       APP_DIR: "/var/www",
       APP_LOG_LEVEL: "warning",
-      APP_URL: "https://www.lidonation.com",
+      APP_URL: "https://api.projectcatalyst.org",
       ANALYTICS_ID: "",
       CACHE_DRIVER: redis,
       CLOUDFLARE_TOKEN: "",
-      COIN_MARKET_CAP_API_KEY: "",
 
 
       DEPLOYMENT: production,
@@ -73,15 +71,13 @@ services:
       FACEBOOK_APP_ID: '',
 
       GOOGLE_CLOUD_KEY_FILE: '/gcloud/gcloud-service-account.json',
-      GOOGLE_CLOUD_STORAGE_BUCKET: 'test.lidonation.com',
-      GOOGLE_CLOUD_STORAGE_BUCKET_BACKUPS: 'backups.www.lidonation.com',
+      GOOGLE_CLOUD_STORAGE_BUCKET: 'test.api.projectcatalyst.org',
+      GOOGLE_CLOUD_STORAGE_BUCKET_BACKUPS: 'backups.api.projectcatalyst.org',
 
-      POSTGRESQL_DB_SYNC_DB_HOST: lidolovelace-db-sync-db-postgresql,
-      POSTGRESQL_DB_SYNC_DB: cdbsync,
-      POSTGRESQL_DB_SYNC_USER: postgres,
-      POSTGRESQL_WEB_DB_HOST: lidolovelace-web-db-postgresql,
-      POSTGRESQL_WEB_DB: lidoweb,
-      POSTGRESQL_WEB_USER: lnation,
+
+      POSTGRESQL_DB_HOST: lidolovelace-web-db-postgresql,
+      POSTGRESQL_DB: lidoweb,
+      POSTGRESQL_USER: lnation,
 
       KUBERNETES_NAMESPACE: lidonation,
 
@@ -92,11 +88,11 @@ services:
       MAIL_PORT: 2525,
 
       MAIL_FROM_ADDRESS: 'team@lidonation.com',
-      MAIL_FROM_NAME: 'Lido Nation',
+      MAIL_FROM_NAME: 'Project Catalyst API',
       MEDIA_DISK: 'gcs',
 
       MAILCHIMP_APIKEY: '',
-      MEILISEARCH_HOST: 'lidolovelace-web-search-service:7700',
+      MEILISEARCH_HOST: 'catalyst-api-search-service:7700',
       MEILI_ENV: production,
 
       PHP_OPCACHE_ENABLE: 1,
@@ -119,7 +115,7 @@ services:
       RESTORE_DB: true,
       RUN_SCHEDULER: true,
 
-      SCOUT_PREFIX: ln__,
+      SCOUT_PREFIX: ca__,
 
       SET_PERMISSIONS: false,
 
@@ -138,7 +134,7 @@ services:
       MAIL_PASSWORD: 'password'
       MAIL_USERNAME: 'username'
     persistence:
-      size: 2Gi
+      size: 20Gi
       storageClass: ssd
       accessMode: ReadWriteMany
       subPath: "storage"

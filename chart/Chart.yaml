@@ -1,0 +1,4 @@
+name: catalyst-api
+apiVersion: v1
+version: "0.0.1"
+description: 'Project Catalyst API.'

@@ -62,9 +62,9 @@ spec:
             containerPort: 8080
             protocol: TCP
         volumeMounts:
-          - name: "{{ $.Chart.Name }}-storage-web-volume"
+          - name: "{{ $.Chart.Name }}-storage-api-volume"
             mountPath: {{ .Values.services.api.persistence.mountPath }}
-            subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/web/storage"
+            subPath: "catalyst/api/storage"
             readOnly: false
         livenessProbe:
           initialDelaySeconds: 60
@@ -83,9 +83,9 @@ spec:
           tcpSocket:
             port: 8080
       volumes:
-        - name: "{{ $.Chart.Name }}-storage-web-volume"
+        - name: "{{ $.Chart.Name }}-storage-api-volume"
           persistentVolumeClaim:
-            claimName: "{{ .Values.namespace }}-storage-web-pvc"
+            claimName: "{{ .Values.namespace }}-storage-api-pvc"
       tolerations:
         - key: "tier"
           operator: "Equal"

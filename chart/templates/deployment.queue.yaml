@@ -34,9 +34,9 @@ spec:
           - name: gcloud-service-account
             mountPath: /tmp/gcloud
             readOnly: false
-          - name: "{{ $.Chart.Name }}-storage-web-volume"
+          - name: "{{ $.Chart.Name }}-storage-api-volume"
             mountPath: {{ .Values.services.api.persistence.mountPath }}
-            subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/web/storage"
+            subPath: "catalyst/api/storage"
             readOnly: false
         args:
           - |
@@ -95,6 +95,6 @@ spec:
           secret:
             defaultMode: 0400
             secretName: "{{ $.Chart.Name }}-gcloud-service-account"
-        - name: "{{ $.Chart.Name }}-storage-web-volume"
+        - name: "{{ $.Chart.Name }}-storage-api-volume"
           persistentVolumeClaim:
-            claimName: "{{ .Values.namespace }}-storage-web-pvc"
+            claimName: "{{ .Values.namespace }}-storage-api-pvc"

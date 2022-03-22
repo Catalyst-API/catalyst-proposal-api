@@ -121,36 +121,7 @@ spec:
           timeoutSeconds: 120
           successThreshold: 1
           failureThreshold: 5
-      - name: ipc
-        image: alpine/socat:1.7.4.1-r2
-        env:
-        - name: CARDANO_NODE_SOCKET_TCP_HOST
-          value: "lidolovelace-cardano-relay-1-service"
-        - name: CARDANO_NODE_SOCKET_TCP_PORT
-          value: "30111"
-        - name: SOCAT_TIMEOUT
-          value: "3600"
-        command: [
-            "sh",
-            "-c",
-            "socat UNIX-LISTEN:/ipc/node.socket,fork TCP:${CARDANO_NODE_SOCKET_TCP_HOST}:${CARDANO_NODE_SOCKET_TCP_PORT},ignoreeof"
-        ]
-#        command: [
-#            "sh",
-#            "-c",
-#            "socat -d -d -d -d -v UNIX-LISTEN:/ipc/node.socket TCP:${CARDANO_NODE_SOCKET_TCP_HOST}:${CARDANO_NODE_SOCKET_TCP_PORT},ignoreeof,keepalive,keepidle=10,keepintvl=10,keepcnt=100"
-#        ]
-        volumeMounts:
-        - mountPath: /ipc
-          name: node-ipc
-          readOnly: false
       volumes:
-        - name: gcloud-service-account
-          secret:
-            defaultMode: 0400
-            secretName: "{{ $.Chart.Name }}-gcloud-service-account"
-        - name: node-ipc
-          emptyDir: {}
         - name: "{{ $.Chart.Name }}-storage-web-volume"
           persistentVolumeClaim:
             claimName: "{{ .Values.namespace }}-storage-web-pvc"

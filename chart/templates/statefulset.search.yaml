@@ -41,7 +41,7 @@ spec:
           volumeMounts:
             - name: "{{ $.Chart.Name }}-search-pv"
               mountPath: /data.ms
-              subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/search"
+              subPath: "catalyst/api/search"
               readOnly: false
       tolerations:
         - key: "tier"
