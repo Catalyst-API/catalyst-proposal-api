@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ $.Chart.Name }}-fpm"
+  name: "{{ $.Chart.Name }}-api"
   namespace: {{ .Values.namespace }}
   labels:
     app: "{{ $.Chart.Name }}"
-    service: "{{ $.Chart.Name }}-fpm"
+    service: "{{ $.Chart.Name }}-api"
 spec:
   selector:
     matchLabels:
       app: "{{ $.Chart.Name }}"
-      service: "{{ $.Chart.Name }}-fpm"
-  replicas: {{ .Values.services.web.replicaCount }}
+      service: "{{ $.Chart.Name }}-api"
+  replicas: {{ .Values.services.api.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -21,13 +21,13 @@ spec:
     metadata:
       labels:
         app: "{{ $.Chart.Name }}"
-        service: "{{ $.Chart.Name }}-fpm"
+        service: "{{ $.Chart.Name }}-api"
     spec:
       imagePullSecrets:
         - name: {{ .Values.image.pullSecret }}
       containers:
       - name: app
-        image: "{{ .Values.services.web.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.services.api.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/bash", "-c"]
         args:
@@ -62,7 +62,7 @@ spec:
             php artisan route:clear;
             php artisan event:cache
 
-            php-fpm --allow-to-run-as-root -y /etc/php-fpm/php-fpm.conf
+            php-api --allow-to-run-as-root -y /etc/php-api/php-api.conf
         lifecycle:
           preStop:
             exec:
@@ -98,7 +98,7 @@ spec:
             mountPath: /tmp/gcloud
             readOnly: false
           - name: "{{ $.Chart.Name }}-storage-web-volume"
-            mountPath: {{ .Values.services.web.persistence.mountPath }}
+            mountPath: {{ .Values.services.api.persistence.mountPath }}
             subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/web/storage"
             readOnly: false
           - name: "{{ $.Chart.Name }}-storage-web-volume"
@@ -108,7 +108,7 @@ spec:
         livenessProbe:
           exec:
             command:
-              - /opt/php-fpm-healthcheck
+              - /opt/php-api-healthcheck
           initialDelaySeconds: 90
           failureThreshold: 5
           timeoutSeconds: 60
@@ -116,7 +116,7 @@ spec:
         readinessProbe:
           exec:
             command:
-              - /opt/php-fpm-healthcheck
+              - /opt/php-api-healthcheck
           initialDelaySeconds: 60
           timeoutSeconds: 120
           successThreshold: 1

@@ -11,7 +11,7 @@ spec:
     matchLabels:
       app: "{{ $.Chart.Name }}"
       service: "{{ $.Chart.Name }}-nginx"
-  replicas: {{ .Values.services.web.replicaCount }}
+  replicas: {{ .Values.services.api.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -27,7 +27,7 @@ spec:
         - name: {{ .Values.image.pullSecret }}
       containers:
       - name: app
-        image: "{{ .Values.services.web.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.services.api.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/sh", "-c"]
         args:
@@ -56,14 +56,14 @@ spec:
               name: "{{ $.Chart.Name }}-configmap"
         env:
           - name: FPM_SERVICE
-            value: "{{ $.Chart.Name }}-fpm-service"
+            value: "{{ $.Chart.Name }}-api-service"
         ports:
           - name: http
             containerPort: 8080
             protocol: TCP
         volumeMounts:
           - name: "{{ $.Chart.Name }}-storage-web-volume"
-            mountPath: {{ .Values.services.web.persistence.mountPath }}
+            mountPath: {{ .Values.services.api.persistence.mountPath }}
             subPath: "lido/{{.Values.services.cardano.config.CARDANO_NETWORK}}/web/storage"
             readOnly: false
         livenessProbe:

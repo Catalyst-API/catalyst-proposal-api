@@ -8,12 +8,12 @@ metadata:
     chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
     release: "{{ $.Release.Name }}"
   annotations:
-    {{- range $key, $value := .Values.services.web.ingress.annotations }}
+    {{- range $key, $value := .Values.services.api.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
   tls:
-  {{- range .Values.services.web.ingress.tls }}
+  {{- range .Values.services.api.ingress.tls }}
     - hosts:
     {{- range .hosts }}
       - {{ . }}
@@ -21,7 +21,7 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
   rules:
-    {{- range .Values.services.web.ingress.hosts }}
+    {{- range .Values.services.api.ingress.hosts }}
     - host: {{ . }}
       http:
         paths:

@@ -54,5 +54,5 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - kubectl exec $(kubectl get pods -l service=lidolovelace-web-fpm --field-selector=status.phase=Running -o=jsonpath='{.items[0].metadata.name}') -c app -- php /var/www/artisan schedule:run
+                - kubectl exec $(kubectl get pods -l service=lidolovelace-web-api --field-selector=status.phase=Running -o=jsonpath='{.items[0].metadata.name}') -c app -- php /var/www/artisan schedule:run
           restartPolicy: Never

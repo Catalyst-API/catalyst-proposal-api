@@ -50,7 +50,7 @@ services:
             driver: "json-file"
             options:
                 max-size: "200k"
-    catalyst-api-fpm-service:
+    catalyst-api-api-service:
         image: registry.raddcreative.io/lidonation/lidonation/api.projectcatalyst.org
         container_name: api
         restart: unless-stopped
