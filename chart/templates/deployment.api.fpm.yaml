@@ -91,12 +91,6 @@ spec:
             containerPort: 9000
             protocol: TCP
         volumeMounts:
-          - name: node-ipc
-            mountPath: /ipc
-            readOnly: false
-          - name: gcloud-service-account
-            mountPath: /tmp/gcloud
-            readOnly: false
           - name: "{{ $.Chart.Name }}-storage-api-volume"
             mountPath: {{ .Values.services.api.persistence.mountPath }}
             subPath: "catalyst/api/storage"

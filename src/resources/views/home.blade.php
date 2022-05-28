@@ -38,7 +38,7 @@
                                 </h2>
                                 <div class="max-w-xl mx-auto">
                                     <p class="text-lg">
-                                        Catalyst Fund6 funded REST and GraphQL APIs for the Catalyst Proposal API with multi-language support.
+                                        Community REST API for Catalyst Proposal DATA with multi-language support.
                                     </p>
                                 </div>
                                 <div>

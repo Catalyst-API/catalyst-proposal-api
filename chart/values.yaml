@@ -68,13 +68,6 @@ services:
       DB_CONNECTION: pgsqlWeb,
       DB_SYNC_DB_CONNECTION: pgsqlDbSync,
 
-      FACEBOOK_APP_ID: '',
-
-      GOOGLE_CLOUD_KEY_FILE: '/gcloud/gcloud-service-account.json',
-      GOOGLE_CLOUD_STORAGE_BUCKET: 'test.api.projectcatalyst.org',
-      GOOGLE_CLOUD_STORAGE_BUCKET_BACKUPS: 'backups.api.projectcatalyst.org',
-
-
       POSTGRESQL_DB_HOST: lidolovelace-web-db-postgresql,
       POSTGRESQL_DB: lidoweb,
       POSTGRESQL_USER: lnation,

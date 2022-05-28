@@ -31,9 +31,6 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/bin/bash", "-c"]
         volumeMounts:
-          - name: gcloud-service-account
-            mountPath: /tmp/gcloud
-            readOnly: false
           - name: "{{ $.Chart.Name }}-storage-api-volume"
             mountPath: {{ .Values.services.api.persistence.mountPath }}
             subPath: "catalyst/api/storage"
@@ -91,10 +88,6 @@ spec:
           operator: "Equal"
           value: "t2"
       volumes:
-        - name: gcloud-service-account
-          secret:
-            defaultMode: 0400
-            secretName: "{{ $.Chart.Name }}-gcloud-service-account"
         - name: "{{ $.Chart.Name }}-storage-api-volume"
           persistentVolumeClaim:
             claimName: "{{ .Values.namespace }}-storage-api-pvc"
